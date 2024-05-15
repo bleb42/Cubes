@@ -693,6 +693,8 @@ MonoBehaviour:
   _startCubesAmount: 4
   _explodeCubesMinAmount: 2
   _explodeCubesMaxAmount: 6
+  _chanceToDouble: 0.5
+  _sizeChange: 0.5
   _cubePrefab: {fileID: 334063621922500184, guid: c08aa37b0aa278648b08fdb9e82a6102, type: 3}
   _exploder: {fileID: 613271908}
   _spawnpoints:

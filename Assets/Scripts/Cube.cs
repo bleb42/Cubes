@@ -1,31 +1,35 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Cube : MonoBehaviour
 {
-    public float Scale { get; private set; }
-    public int ChanceToDouble { get; private set; }
-    public Rigidbody Rigidbody { get; private set; }
+    public event Action<Cube> Touched;
 
-    private CubeSpawner _cubeSpawner;
+    public float Scale { get; private set; }
+    public float ChanceToDouble { get; private set; }
+    public Rigidbody Rigidbody { get; private set; }
+    public bool CanDouble { get; private set; }
 
     private void Awake()
     {
-        Rigidbody= GetComponent<Rigidbody>();
+        Rigidbody = GetComponent<Rigidbody>();
+        CanDouble = false;
     }
 
     private void OnMouseUpAsButton()
     {
-        if (Random.Range(0, 100) <= ChanceToDouble)
-            _cubeSpawner.ExplodeCube(this);
+        if (UnityEngine.Random.Range(0, 100) <= ChanceToDouble)
+            CanDouble = true;
+
+        Touched?.Invoke(this);
 
         Destroy(gameObject);
     }
 
-    public void Init(CubeSpawner cubeSpawner, int changeToDouble, float scale)
+    public void Init(float changeToDouble, float scale)
     {
         ChanceToDouble = changeToDouble;
-        _cubeSpawner = cubeSpawner;
         Scale = scale;
         
         transform.localScale = new Vector3(scale, scale, scale);

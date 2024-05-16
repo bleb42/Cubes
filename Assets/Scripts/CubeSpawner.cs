@@ -64,5 +64,7 @@ public class CubeSpawner : MonoBehaviour
 
         if (cube.CanDouble)
             SpawnCubes(cube);
+        else
+            _exploder.ExplodeAllCubes(cube);
     }
 }
